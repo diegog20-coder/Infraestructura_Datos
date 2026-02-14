@@ -1,0 +1,760 @@
+
+    <!DOCTYPE html>
+    <html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Informe Ejecutivo - Análisis de Campañas Publicitarias</title>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+            
+            body {
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                line-height: 1.6;
+                color: #333;
+                background-color: #f5f5f5;
+                padding: 20px;
+            }
+            
+            .container {
+                max-width: 1200px;
+                margin: 0 auto;
+                background: white;
+                padding: 40px;
+                box-shadow: 0 0 20px rgba(0,0,0,0.1);
+                border-radius: 8px;
+            }
+            
+            header {
+                text-align: center;
+                border-bottom: 3px solid #2c3e50;
+                padding-bottom: 30px;
+                margin-bottom: 30px;
+            }
+            
+            h1 {
+                color: #2c3e50;
+                font-size: 2.5em;
+                margin-bottom: 10px;
+            }
+            
+            .date {
+                color: #7f8c8d;
+                font-size: 0.9em;
+            }
+            
+            h2 {
+                color: #34495e;
+                font-size: 1.8em;
+                margin-top: 30px;
+                margin-bottom: 15px;
+                border-left: 4px solid #3498db;
+                padding-left: 15px;
+            }
+            
+            h3 {
+                color: #2c3e50;
+                font-size: 1.3em;
+                margin-top: 20px;
+                margin-bottom: 10px;
+            }
+            
+            .resumen-ejecutivo {
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                color: white;
+                padding: 30px;
+                border-radius: 8px;
+                margin-bottom: 30px;
+            }
+            
+            .resumen-ejecutivo p {
+                margin-bottom: 15px;
+                font-size: 1.1em;
+            }
+            
+            .kpi-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 20px;
+                margin: 25px 0;
+            }
+            
+            .kpi-card {
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                color: white;
+                padding: 20px;
+                border-radius: 8px;
+                text-align: center;
+                box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            }
+            
+            .kpi-value {
+                font-size: 2em;
+                font-weight: bold;
+                margin: 10px 0;
+            }
+            
+            .kpi-label {
+                font-size: 0.9em;
+                opacity: 0.9;
+            }
+            
+            .section {
+                margin: 30px 0;
+            }
+            
+            .insight {
+                background: #ecf0f1;
+                border-left: 4px solid #3498db;
+                padding: 15px;
+                margin: 15px 0;
+                border-radius: 4px;
+            }
+            
+            .insight.positive {
+                border-left-color: #27ae60;
+                background: #d5f4e6;
+            }
+            
+            .insight.warning {
+                border-left-color: #f39c12;
+                background: #fef5e7;
+            }
+            
+            .insight.negative {
+                border-left-color: #e74c3c;
+                background: #fadbd8;
+            }
+            
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                margin: 20px 0;
+                box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            }
+            
+            th {
+                background-color: #34495e;
+                color: white;
+                padding: 12px;
+                text-align: left;
+                font-weight: bold;
+            }
+            
+            td {
+                padding: 12px;
+                border-bottom: 1px solid #ecf0f1;
+            }
+            
+            tr:hover {
+                background-color: #f8f9fa;
+            }
+            
+            .highlight {
+                background: #fff3cd;
+                padding: 2px 6px;
+                border-radius: 3px;
+                font-weight: bold;
+            }
+            
+            .graphic {
+                margin: 25px 0;
+                text-align: center;
+            }
+            
+            .graphic img {
+                max-width: 100%;
+                height: auto;
+                border: 1px solid #ddd;
+                border-radius: 4px;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            }
+            
+            .recommendation {
+                background: #e8f4f8;
+                border-left: 4px solid #0084ff;
+                padding: 15px;
+                margin: 15px 0;
+                border-radius: 4px;
+            }
+            
+            .footer {
+                margin-top: 50px;
+                padding-top: 20px;
+                border-top: 1px solid #ecf0f1;
+                text-align: center;
+                color: #7f8c8d;
+                font-size: 0.9em;
+            }
+            
+            ul, ol {
+                margin-left: 20px;
+                margin: 15px 0;
+            }
+            
+            li {
+                margin: 10px 0;
+            }
+            
+            .badge {
+                display: inline-block;
+                padding: 5px 12px;
+                border-radius: 20px;
+                font-size: 0.85em;
+                font-weight: bold;
+                margin: 5px;
+            }
+            
+            .badge.success {
+                background: #d4edda;
+                color: #155724;
+            }
+            
+            .badge.warning {
+                background: #fff3cd;
+                color: #856404;
+            }
+            
+            .badge.danger {
+                background: #f8d7da;
+                color: #721c24;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <header>
+                <h1>📊 Informe Ejecutivo</h1>
+                <p style="font-size: 1.2em; margin: 10px 0;">Análisis de Campañas Publicitarias</p>
+                <p class="date">Fecha: 14 de February de 2026</p>
+            </header>
+            
+            <div class="resumen-ejecutivo">
+                <h2 style="color: white; border-left-color: white; margin-top: 0;">Resumen Ejecutivo</h2>
+                <p>
+                    Se analizaron <strong>10 campañas publicitarias</strong> ejecutadas entre octubre 2025 y enero 2026
+                    a través de múltiples plataformas digitales. El análisis revela un desempeño 
+                    <strong>altamente positivo</strong> con un retorno general de <strong>6.68x</strong> en publicidad invertida,
+                    generando una <strong>ganancia neta de $32,646.93</strong> sobre una inversión de $7,721.54.
+                </p>
+                <p>
+                    La estrategia publicitaria actual demuestra fortalezas significativas en plataformas como 
+                    <strong>Facebook Ads</strong> y en el segmento de edad <strong>45-54 años</strong>,
+                    identificando oportunidades claras de optimización y expansión.
+                </p>
+            </div>
+            
+            <div class="kpi-grid">
+                <div class="kpi-card">
+                    <div class="kpi-label">ROAS Promedio</div>
+                    <div class="kpi-value">6.68x</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-label">Revenue Total</div>
+                    <div class="kpi-value">$40,368</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-label">Ganancia Neta</div>
+                    <div class="kpi-value">$32,647</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-label">Margen</div>
+                    <div class="kpi-value">80.9%</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-label">Conversiones</div>
+                    <div class="kpi-value">996</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-label">Conversion Rate</div>
+                    <div class="kpi-value">5.85%</div>
+                </div>
+            </div>
+            
+            <h2>1. Análisis de Plataformas</h2>
+            
+            <div class="section">
+                <h3>Desempeño por Canal Digital</h3>
+                
+                <div class="insight positive">
+                    <strong>✓ Hallazgo Clave:</strong> <span class="highlight">Facebook Ads</span> lidera con un ROAS de 
+                    <span class="highlight">7.65x</span>, demostrando la mayor eficiencia en conversión de inversión a retorno.
+                </div>
+                
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Plataforma</th>
+                            <th>Campañas</th>
+                            <th>Impresiones</th>
+                            <th>Clicks</th>
+                            <th>Conversiones</th>
+                            <th>Revenue</th>
+                            <th>ROAS</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+    
+                        <tr>
+                            <td><strong>Facebook Ads</strong></td>
+                            <td>1</td>
+                            <td>24,897</td>
+                            <td>3,953</td>
+                            <td>43</td>
+                            <td>$6,177.96</td>
+                            <td><span class="badge success">7.65x</span></td>
+                        </tr>
+        
+                        <tr>
+                            <td><strong>Instagram Ads</strong></td>
+                            <td>4</td>
+                            <td>218,155</td>
+                            <td>10,747</td>
+                            <td>416</td>
+                            <td>$14,575.18</td>
+                            <td><span class="badge success">6.60x</span></td>
+                        </tr>
+        
+                        <tr>
+                            <td><strong>LinkedIn Ads</strong></td>
+                            <td>1</td>
+                            <td>11,627</td>
+                            <td>4,024</td>
+                            <td>105</td>
+                            <td>$4,341.57</td>
+                            <td><span class="badge warning">2.35x</span></td>
+                        </tr>
+        
+                        <tr>
+                            <td><strong>TikTok Ads</strong></td>
+                            <td>4</td>
+                            <td>149,504</td>
+                            <td>6,227</td>
+                            <td>432</td>
+                            <td>$15,273.76</td>
+                            <td><span class="badge success">7.60x</span></td>
+                        </tr>
+        
+                    </tbody>
+                </table>
+                
+                <div class="graphic">
+                    <h4>Visualización: ROAS y Revenue por Plataforma</h4>
+                    <img src="analisis_graficas.png" alt="Gráficas de Análisis">
+                    <p><em>Fuente: Gráfica 1 (ROAS) y Gráfica 2 (Revenue) de analisis_graficas.png</em></p>
+                </div>
+                
+                <div class="insight warning">
+                    <strong>⚠ Área de Mejora:</strong> LinkedIn Ads muestra el menor ROAS (2.35x).
+                    Se recomienda revisar la audiencia objetivo, creatividad y landing pages para optimizar este canal.
+                </div>
+            </div>
+            
+            <h2>2. Análisis de Audiencia Objetivo</h2>
+            
+            <div class="section">
+                <h3>Segmentación por Grupo de Edad</h3>
+                
+                <div class="insight positive">
+                    <strong>✓ Segmento Estrella:</strong> La audiencia de <span class="highlight">45-54 años</span> 
+                    genera un ROAS de <span class="highlight">11.02x</span>, siendo la más rentable con ingresos superiores 
+                    a los demás segmentos.
+                </div>
+                
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Grupo de Edad</th>
+                            <th>Campañas</th>
+                            <th>Conversiones</th>
+                            <th>Costo Total</th>
+                            <th>Revenue</th>
+                            <th>ROAS Promedio</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+    
+                        <tr>
+                            <td><strong>18-24 años</strong></td>
+                            <td>2</td>
+                            <td>335</td>
+                            <td>$822.58</td>
+                            <td>$8,491.51</td>
+                            <td><span class="badge success">7.93x</span></td>
+                        </tr>
+                    
+                        <tr>
+                            <td><strong>25-34 años</strong></td>
+                            <td>2</td>
+                            <td>294</td>
+                            <td>$3,513.69</td>
+                            <td>$4,385.75</td>
+                            <td><span class="badge danger">1.19x</span></td>
+                        </tr>
+                    
+                        <tr>
+                            <td><strong>35-44 años</strong></td>
+                            <td>2</td>
+                            <td>204</td>
+                            <td>$1,387.05</td>
+                            <td>$7,767.69</td>
+                            <td><span class="badge success">5.20x</span></td>
+                        </tr>
+                    
+                        <tr>
+                            <td><strong>45-54 años</strong></td>
+                            <td>3</td>
+                            <td>160</td>
+                            <td>$1,775.66</td>
+                            <td>$18,596.13</td>
+                            <td><span class="badge success">11.02x</span></td>
+                        </tr>
+                    
+                        <tr>
+                            <td><strong>55+ años</strong></td>
+                            <td>1</td>
+                            <td>3</td>
+                            <td>$222.56</td>
+                            <td>$1,127.39</td>
+                            <td><span class="badge success">5.07x</span></td>
+                        </tr>
+                    
+                    </tbody>
+                </table>
+                
+                <div class="graphic">
+                    <h4>Visualización: ROAS por Grupo de Edad</h4>
+                    <img src="analisis_graficas.png" alt="ROAS por Edad">
+                    <p><em>Fuente: Gráfica 4 (ROAS por Edad) de analisis_graficas.png</em></p>
+                </div>
+                
+                <div class="insight negative">
+                    <strong>⚠ Alerta Crítica:</strong> El segmento 25-34 años muestra un ROAS de solo 1.19x,
+                    indicando que se está gastando más de lo que se genera. Se recomienda pausar o reestructurar campañas 
+                    dirigidas a este grupo de edad inmediatamente.
+                </div>
+            </div>
+            
+            <h2>3. Análisis de Tipos de Campaña</h2>
+            
+            <div class="section">
+                <h3>Distribución y Eficiencia por Tipo</h3>
+                
+                <div class="insight positive">
+                    <strong>✓ Mejor Desempeño:</strong> Las campañas de <span class="highlight">Awareness</span> 
+                    logran un ROAS de <span class="highlight">8.75x</span>.
+                </div>
+                
+                <div class="graphic">
+                    <h4>Visualización: Distribución de Conversiones por Tipo de Campaña</h4>
+                    <img src="analisis_graficas.png" alt="Conversiones por Tipo">
+                    <p><em>Fuente: Gráfica 3 (Distribución de Conversiones) de analisis_graficas.png</em></p>
+                </div>
+                
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Tipo de Campaña</th>
+                            <th>Total Campañas</th>
+                            <th>Total Clicks</th>
+                            <th>Conversiones</th>
+                            <th>Conversion Rate Promedio</th>
+                            <th>ROAS Promedio</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+    
+                        <tr>
+                            <td><strong>Awareness</strong></td>
+                            <td>1</td>
+                            <td>3,471</td>
+                            <td>13</td>
+                            <td>0.37%</td>
+                            <td><span class="badge success">8.75x</span></td>
+                        </tr>
+                    
+                        <tr>
+                            <td><strong>Conversion</strong></td>
+                            <td>2</td>
+                            <td>5,918</td>
+                            <td>233</td>
+                            <td>5.38%</td>
+                            <td><span class="badge success">5.98x</span></td>
+                        </tr>
+                    
+                        <tr>
+                            <td><strong>Engagement</strong></td>
+                            <td>4</td>
+                            <td>11,325</td>
+                            <td>505</td>
+                            <td>5.12%</td>
+                            <td><span class="badge success">6.52x</span></td>
+                        </tr>
+                    
+                        <tr>
+                            <td><strong>Lead Generation</strong></td>
+                            <td>2</td>
+                            <td>4,193</td>
+                            <td>242</td>
+                            <td>10.00%</td>
+                            <td><span class="badge success">7.44x</span></td>
+                        </tr>
+                    
+                        <tr>
+                            <td><strong>Traffic</strong></td>
+                            <td>1</td>
+                            <td>44</td>
+                            <td>3</td>
+                            <td>6.82%</td>
+                            <td><span class="badge success">5.07x</span></td>
+                        </tr>
+                    
+                    </tbody>
+                </table>
+            </div>
+            
+            <h2>4. Rendimiento de Campañas Individuales</h2>
+            
+            <div class="section">
+                <h3>Top 3 Campañas (Mayor ROAS)</h3>
+                
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Campaña ID</th>
+                            <th>Plataforma</th>
+                            <th>Tipo</th>
+                            <th>Revenue</th>
+                            <th>Costo</th>
+                            <th>ROAS</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+    
+                        <tr>
+                            <td><strong>CAMP-529903</strong></td>
+                            <td>Instagram Ads</td>
+                            <td>Lead Generation</td>
+                            <td>$6,417.58</td>
+                            <td>$432.17</td>
+                            <td><span class="badge success">14.85x</span></td>
+                        </tr>
+        
+                        <tr>
+                            <td><strong>CAMP-27824</strong></td>
+                            <td>TikTok Ads</td>
+                            <td>Engagement</td>
+                            <td>$7,895.10</td>
+                            <td>$684.39</td>
+                            <td><span class="badge success">11.54x</span></td>
+                        </tr>
+        
+                        <tr>
+                            <td><strong>CAMP-735392</strong></td>
+                            <td>TikTok Ads</td>
+                            <td>Engagement</td>
+                            <td>$5,654.86</td>
+                            <td>$597.82</td>
+                            <td><span class="badge success">9.46x</span></td>
+                        </tr>
+        
+                    </tbody>
+                </table>
+                
+                <div class="insight positive">
+                    <strong>✓ Éxitos a Replicar:</strong> Estas campañas demuestran excelentes características.
+                    Analice sus creatividades, segmentación y landing pages como modelos para futuras campañas.
+                </div>
+                
+                <h3 style="margin-top: 30px;">Bottom 3 Campañas (Menor ROAS)</h3>
+                
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Campaña ID</th>
+                            <th>Plataforma</th>
+                            <th>Tipo</th>
+                            <th>Revenue</th>
+                            <th>Costo</th>
+                            <th>ROAS</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+    
+                        <tr>
+                            <td><strong>CAMP-750800</strong></td>
+                            <td>Instagram Ads</td>
+                            <td>Lead Generation</td>
+                            <td>$44.18</td>
+                            <td>$1,666.04</td>
+                            <td><span class="badge danger">0.03x</span></td>
+                        </tr>
+        
+                        <tr>
+                            <td><strong>CAMP-229258</strong></td>
+                            <td>LinkedIn Ads</td>
+                            <td>Engagement</td>
+                            <td>$4,341.57</td>
+                            <td>$1,847.65</td>
+                            <td><span class="badge warning">2.35x</span></td>
+                        </tr>
+        
+                        <tr>
+                            <td><strong>CAMP-208496</strong></td>
+                            <td>Instagram Ads</td>
+                            <td>Engagement</td>
+                            <td>$1,589.73</td>
+                            <td>$579.13</td>
+                            <td><span class="badge warning">2.75x</span></td>
+                        </tr>
+        
+                    </tbody>
+                </table>
+                
+                <div class="graphic">
+                    <h4>Visualización: Rendimiento Comparativo de Campañas</h4>
+                    <img src="comparativa_campanas.png" alt="Comparativa de Campañas">
+                    <p><em>Fuente: comparativa_campanas.png - Incluye ROAS, Costo vs Revenue, Conversiones y CTR</em></p>
+                </div>
+                
+                <div class="insight warning">
+                    <strong>⚠ Acciones Correctivas Necesarias:</strong> Las campañas con bajo ROAS requieren 
+                    revisión inmediata. Considere pausarlas y reallocar presupuesto a las de mejor desempeño.
+                </div>
+            </div>
+            
+            <h2>5. Indicadores Clave de Rendimiento (KPIs)</h2>
+            
+            <div class="section">
+                <div class="graphic">
+                    <h4>Visualización: Métricas KPI Clave</h4>
+                    <img src="metricas_kpi.png" alt="Métricas KPI">
+                    <p><em>Fuente: metricas_kpi.png</em></p>
+                </div>
+                
+                <h3>Análisis Detallado de Métricas</h3>
+                
+                <h4>Return on Ad Spend (ROAS)</h4>
+                <div class="insight positive">
+                    <strong>Valor: 6.68x</strong><br>
+                    Este es un indicador saludable. Por cada dólar invertido en publicidad, se generan 6.68 dólares en revenue.
+                    La mayoría de industrias buscan un ROAS superior a 3x, por lo que un promedio de 6.68x es excelente.
+                </div>
+                
+                <h4>Click-Through Rate (CTR)</h4>
+                <div class="insight positive">
+                    <strong>Valor: 9.18%</strong><br>
+                    Un CTR de 9.18% indica que casi 1 de cada 11 impresiones resulta en un click. Este es un ratio muy positivo que 
+                    demuestra que el copy y creatividad de los anuncios son efectivos en capturar la atención.
+                </div>
+                
+                <h4>Conversion Rate</h4>
+                <div class="insight positive">
+                    <strong>Valor: 5.85%</strong><br>
+                    Aproximadamente 5.85% de los usuarios que hacen click en el anuncio se convierten.
+                    Este nivel de conversión indica landing pages optimizadas y buena relación anuncio-oferta.
+                </div>
+                
+                <h4>Costo por Click (CPC)</h4>
+                <div class="insight">
+                    <strong>Valor: $0.86</strong><br>
+                    Se paga en promedio $0.86 por cada usuario que hace click en los anuncios.
+                    Este costo varía significativamente según la plataforma y competencia en subastas de publicidad.
+                </div>
+                
+                <h4>Costo por Adquisición (CPA)</h4>
+                <div class="insight">
+                    <strong>Valor: $20.03</strong><br>
+                    El costo promedio para adquirir un cliente es de $20.03.
+                    Este es un KPI crítico que debe evaluarse contra el valor de vida del cliente (LTV).
+                </div>
+                
+                <h4>Margen de Ganancia</h4>
+                <div class="insight positive">
+                    <strong>Valor: 80.9%</strong><br>
+                    De cada dólar de revenue, se retienen 80.9 centavos después de restar todos los costos publicitarios.
+                    Este es un margen muy saludable e indica una estrategia publicitaria muy rentable.
+                </div>
+            </div>
+            
+            <h2>6. Recomendaciones Estratégicas</h2>
+            
+            <div class="section">
+                <div class="recommendation">
+                    <h3 style="margin-top: 0;">1. AUMENTAR INVERSIÓN EN Facebook Ads</h3>
+                    <p>Con un ROAS de 7.65x, esta plataforma está generando retornos excepcionales.
+                    Se recomienda incrementar el presupuesto diario destinado a Facebook Ads para maximizar ganancias.</p>
+                </div>
+                
+                <div class="recommendation">
+                    <h3>2. OPTIMIZAR AUDIENCIA 45-54 AÑOS</h3>
+                    <p>El grupo de edad 45-54 años muestra el mejor ROAS (11.02x).
+                    Expandir campañas dirigidas a este segmento podría aumentar significativamente los retornos globales.</p>
+                </div>
+                
+                <div class="recommendation">
+                    <h3>3. REVISAR O PAUSAR CAMPAÑA CAMP-750800</h3>
+                    <p>Esta campaña muestra un ROAS de solo 0.03x, perdiendo $1,621.86.
+                    Se recomienda pausarla inmediatamente y reasignar su presupuesto a campañas de mejor desempeño.</p>
+                </div>
+                
+                <div class="recommendation">
+                    <h3>4. REESTRUCTURAR SEGMENTO 25-34 AÑOS</h3>
+                    <p>Con un ROAS de solo 1.19x, este segment está siendo improfitable.
+                    Las opciones incluyen: cambiar la audiencia objetivo, revisar la creatividad, o pausar estas campañas completamente.</p>
+                </div>
+                
+                <div class="recommendation">
+                    <h3>5. REVISAR LINKEDIN ADS</h3>
+                    <p>LinkedIn Ads muestra el menor ROAS promedio (2.35x) entre todas las plataformas.
+                    Aunque aún es positivo, requiere optimización urgente. Analice si el targeting, creatividad o tipo de oferta es apropiado para esta plataforma.</p>
+                </div>
+                
+                <div class="recommendation">
+                    <h3>6. REPLICAR FÓRMULA DE CAMPAÑAS TOP</h3>
+                    <p>Analice detalladamente CAMP-529903 (ROAS 14.85x), CAMP-27824 (11.54x) y CAMP-735392 (9.46x).
+                    Replique sus características (plataforma, audiencia, tipo de campaña) en nuevas campañas.</p>
+                </div>
+            </div>
+            
+            <h2>7. Conclusiones</h2>
+            
+            <div class="section">
+                <div class="insight positive">
+                    <h3 style="margin-top: 0;">Estado General: EXCELENTE</h3>
+                    <p>
+                        <strong>Fortalezas Clave:</strong><br>
+                        • ROAS promedio de 6.68x demuestra estrategia altamente efectiva<br>
+                        • Margen de ganancia del 80.9% indica operaciones rentables<br>
+                        • Conversiones totales de 996 demuestran que el funnel está funcionando<br>
+                        • Datos limpios sin valores faltantes facilitan la toma de decisiones<br>
+                    </p>
+                    
+                    <p>
+                        <strong>Áreas de Mejora:</strong><br>
+                        • Variabilidad en rendimiento entre plataformas - LinkedIn requiere revisión<br>
+                        • Segmento 25-34 años es improfitable y necesita corrección<br>
+                        • Algunas campañas tienen ROAS muy bajo (&lt;2x) y deben pausarse<br>
+                    </p>
+                    
+                    <p>
+                        <strong>Recomendación General:</strong><br>
+                        Mantener las campañas exitosas activas, aumentar su presupuesto y usar sus características como 
+                        templates para nuevas campañas. Pausar o reducir significativamente las campañas con bajo desempeño.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="footer">
+                <p>Informe Ejecutivo - Análisis Detallado de Campañas Publicitarias</p>
+                <p>Generado automáticamente el 14/02/2026 a las 11:29</p>
+                <p>Gráficas incluidas: analisis_graficas.png | metricas_kpi.png | comparativa_campanas.png</p>
+            </div>
+        </div>
+    </body>
+    </html>
+    
